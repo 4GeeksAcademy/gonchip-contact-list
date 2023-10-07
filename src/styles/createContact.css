@@ -1,0 +1,63 @@
+
+.container-div{
+    display:flex;
+    flex-direction: column;
+    width:30%;
+    margin:auto;
+}
+
+.container-div button{
+    margin-top:4%;
+    width: 30%;
+    align-self: center;
+    border-radius: 5px;
+    border: none;
+    color:white;
+    background-color: #0d6efd
+}
+
+.container-div input{
+    border: none;
+    border-bottom: 2px solid #F1F3F4;
+    margin-bottom: 4%;
+    padding: 4px;
+    width: 100%;
+}
+
+.container-div h1{
+    font-weight: 700;
+    align-self: center;
+    color: #333;
+    margin-bottom: 5%
+}
+
+.container-div p{
+    margin: 0;
+    font-style: italic;
+    font-size: 13px;
+    color: #757575;
+}
+
+.input-holder label{
+    position: absolute;
+    left: 35.5%;
+    align-self:center;
+    padding-top:0.3%;
+    pointer-events: none;
+    transition: 0.2s ease-in-out;
+
+}
+
+input:focus {
+    outline:none
+}
+
+.input-holder input:focus + label,
+.input-holder input:valid + label{
+    margin-top:-1.2%;
+    font-size: 0.8em
+}
+
+.input-holder label span, .container-div p span{
+    color: #0d6efd;
+}
