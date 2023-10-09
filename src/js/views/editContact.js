@@ -1,9 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Link, useNavigate } from "react-router-dom";
 import "../../styles/createContact.css";
 
-export const CreateContact = () => {
+  export const EditContact = () => {
+  const { id } = useParams(); // Obtén el ID del contacto de la URL
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 
@@ -15,12 +16,7 @@ export const CreateContact = () => {
     address: "",
   });
 
- 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setContact({ ...contact, [name]: value });
-  };
-
+  
   const loadContactData = () => {
     fetch("https://playground.4geeks.com/apis/fake/contact/agenda/gonchip")
       .then((response) => {
@@ -38,21 +34,64 @@ export const CreateContact = () => {
       });
   };
 
-  const saveContact = () => {
-    
-    const response = actions.createContact(contact)
+  
+  useEffect(() => {
+    loadContactData()
+  }, []);
+ 
+  
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setContact({ ...contact, [name]: value });
+  };
 
-    if (response) {
-       navigate("/")
-       window.location.reload()
+  const saveChanges = () => {
+    if (id) {
+      
+      const updatedContactData = {
+        full_name: contact.full_name,
+        email: contact.email,
+        phone: contact.phone,
+        address: contact.address,
+        agenda_slug: "gonchip", 
+      };
+
+      
+      fetch(`https://playground.4geeks.com/apis/fake/contact/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(updatedContactData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            console.error("Error al actualizar el contacto");
+            throw Error(response.statusText);
+          }
+          return response.json();
+        })
+        .then((updatedContact) => {
+          
+          const updatedContactList = store.contactList.map((c) =>
+            c.id === id ? updatedContact : c
+          );
+
+          actions.contactsLoad(updatedContactList); 
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Error en la solicitud de edición:", error);
+          navigate("/");
+        });
     } else {
-      alert("Completa todos los campos.")
+      
     }
   };
 
   return (
     <div className="container-div">
-      <h1>Create Contact</h1>
+      <h1>Edit Contact</h1>
 
       <div className="input-holder">
         <input
@@ -94,9 +133,11 @@ export const CreateContact = () => {
         />
       </div>
 
-      <button onClick={saveContact}>Save</button>
+      <button onClick={saveChanges}>Save Changes</button>
 
       <Link to="/">Get Back to Contacts</Link>
     </div>
   );
 };
+
+export default EditContact;

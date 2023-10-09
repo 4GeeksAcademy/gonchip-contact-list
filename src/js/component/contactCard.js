@@ -4,12 +4,7 @@ import { faLocationDot, faPhone, faEnvelope, faPencil, faTrashCan } from "@forta
 import { Link } from "react-router-dom"
 
 
-
-
 export const ContactCard = (contact) => {
-    const [open, setVisible] = useState(false)
-
-
 
     return <><div className="contact-div">
         <img className="contact-photo" src="https://picsum.photos/id/64/4326/4000" alt="Contact image" />
@@ -33,7 +28,7 @@ export const ContactCard = (contact) => {
             </span>
 
             <span className="right-span">
-                <Link to={`/createContact/${contact.id}`}>
+                <Link to={`/editContact/${contact.id}`}>
                     <FontAwesomeIcon icon={faPencil} />
                 </Link>
                 <FontAwesomeIcon icon={faTrashCan} onClick={contact.trash} />
