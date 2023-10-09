@@ -11,9 +11,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if(contact.full_name=="" || contact.email=="" || contact.phone=="" || contact.address=="")return false
 				fetch('https://playground.4geeks.com/apis/fake/contact/', {
 					method: "POST",
-					body: JSON.stringify({...contact, "agenda_slug": "Zeckrox"}),
+					body: JSON.stringify({...contact, "agenda_slug": "gonchip"}),
 					headers:{'Content-Type': 'application/json'}})
-				setStore({...store, contactList:[...store.contactList, {...contact, "agenda_slug": "Zeckrox"}]});
+				setStore({...store, contactList:[...store.contactList, {...contact, "agenda_slug": "gonchip"}]});
 				return true
 			},
 
@@ -42,6 +42,48 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				return true
 			},
+
+			
+  editContact: (contact) => {
+    const store = getStore();
+    // Obtén el ID del contacto que se va a editar
+    const contactId = contact.id;
+
+    // Construye el objeto de datos para la solicitud de edición
+    const updatedContactData = {
+      full_name: contact.full_name,
+      email: contact.email,
+      phone: contact.phone,
+      address: contact.address,
+    };
+
+    // Realiza una solicitud PUT para editar el contacto en tu API o sistema de backend
+    fetch(`https://playground.4geeks.com/apis/fake/contact/${contactId}`, {
+      method: "PUT",
+      body: JSON.stringify(updatedContactData),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.error("Error al editar el contacto");
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then((editedContact) => {
+        // Actualiza el contacto en el estado global con los datos editados
+        const updatedContactList = store.contactList.map((c) =>
+          c.id === contactId ? editedContact : c
+        );
+
+        setStore({
+          contactList: updatedContactList,
+        });
+      })
+      .catch((error) => {
+        console.error("Error en la solicitud de edición:", error);
+      });
+  },
 
 			contactsLoad: (json) => {
 				const store = getStore();

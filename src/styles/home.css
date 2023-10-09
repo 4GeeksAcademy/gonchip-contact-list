@@ -51,3 +51,11 @@
 .left-span span{
     margin-bottom: 1%;
 }
+
+p{
+    padding-left: 5px;
+}
+
+svg{
+    padding-left: 5px;
+}

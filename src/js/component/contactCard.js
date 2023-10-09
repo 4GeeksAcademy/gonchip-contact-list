@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faPhone, faEnvelope, faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { EditModal } from "./editModal";
+import { Link } from "react-router-dom"
+
 
 
 
 export const ContactCard = (contact) => {
-    const [open, setOpen] = useState(false)
+    const [open, setVisible] = useState(false)
+
+
 
     return <><div className="contact-div">
         <img className="contact-photo" src="https://picsum.photos/id/64/4326/4000" alt="Contact image" />
@@ -30,12 +33,13 @@ export const ContactCard = (contact) => {
             </span>
 
             <span className="right-span">
-                <FontAwesomeIcon icon={faPencil} onClick={() => { setOpen(true) }} />
+                <Link to={`/createContact/${contact.id}`}>
+                    <FontAwesomeIcon icon={faPencil} />
+                </Link>
                 <FontAwesomeIcon icon={faTrashCan} onClick={contact.trash} />
             </span>
 
         </div>
     </div>
-        <EditModal toggleVisible={contact.pencil} visibility={open} contact={contact} onClose={() => { setOpen(false) }} />
     </>
 }

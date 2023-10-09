@@ -23,7 +23,7 @@ const injectContext = PassedComponent => {
 		);
 
 		useEffect(() => {
-			fetch('https://playground.4geeks.com/apis/fake/contact/agenda/Zeckrox')
+			fetch('https://playground.4geeks.com/apis/fake/contact/agenda/gonchip')
 		.then(function(response) {
 		   if (!response.ok) {
 			console.error("No task on API")

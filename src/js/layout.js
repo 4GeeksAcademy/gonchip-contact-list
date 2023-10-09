@@ -1,10 +1,10 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ScrollToTop from "./component/scrollToTop";
+import React from "react"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import ScrollToTop from "./component/scrollToTop"
 
-import { Home } from "./views/home";
-import { CreateContact } from "./views/createContact";
-import injectContext from "./store/appContext";
+import { Home } from "./views/home"
+import { CreateContact } from "./views/createContact"
+import injectContext from "./store/appContext"
 
 import { Navbar } from "./component/navbar";
 
@@ -12,7 +12,7 @@ import { Navbar } from "./component/navbar";
 const Layout = () => {
 	//the basename is used when your project is published in a subdirectory and not in the root of the domain
 	// you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
-	const basename = process.env.BASENAME || "";
+	const basename = process.env.BASENAME || ""
 
 	return (
 		<div>
@@ -21,8 +21,8 @@ const Layout = () => {
 					<Navbar />
 					<Routes>
 						<Route path="/" element={<Home />} />
-						<Route path="/createContact" element={<CreateContact />} />
-						<Route path="*" element={<h1>Not found!</h1>} />
+						<Route path="/createContact/" element={<CreateContact />} />
+						<Route path="/createContact/:id" element={<CreateContact />} />
 					</Routes>
 				</ScrollToTop>
 			</BrowserRouter>
@@ -30,4 +30,5 @@ const Layout = () => {
 	);
 };
 
-export default injectContext(Layout);
+export default injectContext(Layout)
+

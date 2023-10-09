@@ -18,7 +18,7 @@ export const EditModal = (modal) => {
 
 	return (
 		<div style={{ position: "absolute", visibility: modal.visibility ? "" : "hidden" }}>
-			<div className="modal-background"></div>
+			{/* <div className="modal-background"></div> */}
 			<div className="modal">
 				<span className="modal-inside">
 					<h2>Edit contact</h2>
